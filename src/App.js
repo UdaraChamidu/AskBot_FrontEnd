@@ -29,7 +29,9 @@ function App() {
     setActiveId(id);
 
     try {
-      const res = await fetch(`https://askbot-backend.up.railway.app/history?session_id=${id}`);
+      const res = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/history?session_id=${id}`
+      );
 
       const data = await res.json();
 
