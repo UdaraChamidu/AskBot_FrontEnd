@@ -5,16 +5,21 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css"; // Use your own CSS here
 
 function App() {
+  // Read backend URL from environment variable once
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [sessions, setSessions] = useState([]);
   const [activeId, setActiveId] = useState(null);
 
   useEffect(() => {
+    // Load chat sessions from localStorage
     const saved = JSON.parse(localStorage.getItem("askbot-sessions")) || [];
     setSessions(saved);
     if (saved.length > 0) setActiveId(saved[0].id);
   }, []);
 
   useEffect(() => {
+    // Save chat sessions to localStorage on every update
     localStorage.setItem("askbot-sessions", JSON.stringify(sessions));
   }, [sessions]);
 
@@ -27,14 +32,11 @@ function App() {
 
   const handleSelectChat = async (id) => {
     setActiveId(id);
-
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/history?session_id=${id}`
-      );
-
+      const res = await fetch(`${BACKEND_URL}/history?session_id=${id}`);
+      if (!res.ok)
+        throw new Error(`Failed to fetch history: ${res.statusText}`);
       const data = await res.json();
-
       const updatedSessions = sessions.map((s) =>
         s.id === id ? { ...s, messages: data.messages } : s
       );
@@ -53,7 +55,6 @@ function App() {
 
   const handleSend = async ({ text, image }) => {
     const userMessage = { text, image };
-
     const newSessions = sessions.map((s) =>
       s.id === activeId
         ? {
@@ -65,7 +66,7 @@ function App() {
     setSessions(newSessions);
 
     try {
-        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/chat`, {
+      const res = await fetch(`${BACKEND_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -74,14 +75,17 @@ function App() {
           image_data: image,
         }),
       });
+
+      if (!res.ok) throw new Error(`Server error: ${res.statusText}`);
+
       const data = await res.json();
+
       const updatedSessions = sessions.map((s) =>
         s.id === activeId
           ? {
               ...s,
               messages: [
                 ...s.messages,
-                { role: "user", content: userMessage },
                 { role: "assistant", content: { text: data.reply } },
               ],
             }
