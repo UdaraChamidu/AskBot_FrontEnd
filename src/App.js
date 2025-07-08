@@ -29,7 +29,8 @@ function App() {
     setActiveId(id);
 
     try {
-      const res = await fetch(`http://localhost:8000/history?session_id=${id}`);
+      const res = await fetch(`https://askbot-backend.up.railway.app/history?session_id=${id}`);
+
       const data = await res.json();
 
       const updatedSessions = sessions.map((s) =>
