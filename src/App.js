@@ -55,15 +55,18 @@ function App() {
 
   const handleSend = async ({ text, image }) => {
     const userMessage = { text, image };
-    const newSessions = sessions.map((s) =>
-      s.id === activeId
-        ? {
-            ...s,
-            messages: [...s.messages, { role: "user", content: userMessage }],
-          }
-        : s
+
+    // Optimistically add the user message
+    setSessions((prevSessions) =>
+      prevSessions.map((s) =>
+        s.id === activeId
+          ? {
+              ...s,
+              messages: [...s.messages, { role: "user", content: userMessage }],
+            }
+          : s
+      )
     );
-    setSessions(newSessions);
 
     try {
       const res = await fetch(`${BACKEND_URL}/chat`, {
@@ -80,18 +83,20 @@ function App() {
 
       const data = await res.json();
 
-      const updatedSessions = sessions.map((s) =>
-        s.id === activeId
-          ? {
-              ...s,
-              messages: [
-                ...s.messages,
-                { role: "assistant", content: { text: data.reply } },
-              ],
-            }
-          : s
+      // Append the assistant message
+      setSessions((prevSessions) =>
+        prevSessions.map((s) =>
+          s.id === activeId
+            ? {
+                ...s,
+                messages: [
+                  ...s.messages,
+                  { role: "assistant", content: { text: data.reply } },
+                ],
+              }
+            : s
+        )
       );
-      setSessions(updatedSessions);
     } catch (err) {
       alert("Error contacting AskBot server.");
       console.error(err);
