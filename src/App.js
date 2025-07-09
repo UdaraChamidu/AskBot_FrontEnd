@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css"; // Use your own CSS here
 
 function App() {
-  // Read backend URL from environment variable once
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   const [sessions, setSessions] = useState([]);
@@ -30,20 +29,9 @@ function App() {
     setActiveId(newId);
   };
 
-  const handleSelectChat = async (id) => {
+  const handleSelectChat = (id) => {
+    // ✅ Only change the active chat ID. Don't fetch from backend.
     setActiveId(id);
-    try {
-      const res = await fetch(`${BACKEND_URL}/history?session_id=${id}`);
-      if (!res.ok)
-        throw new Error(`Failed to fetch history: ${res.statusText}`);
-      const data = await res.json();
-      const updatedSessions = sessions.map((s) =>
-        s.id === id ? { ...s, messages: data.messages } : s
-      );
-      setSessions(updatedSessions);
-    } catch (err) {
-      console.error("Failed to load chat history", err);
-    }
   };
 
   const handleDeleteChat = (id) => {
