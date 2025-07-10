@@ -71,19 +71,29 @@ function App() {
 
       const data = await res.json();
 
-      // Append the assistant message
+      // Append the assistant message AND update title if still default "New Chat"
       setSessions((prevSessions) =>
-        prevSessions.map((s) =>
-          s.id === activeId
-            ? {
-                ...s,
-                messages: [
-                  ...s.messages,
-                  { role: "assistant", content: { text: data.reply } },
-                ],
-              }
-            : s
-        )
+        prevSessions.map((s) => {
+          if (s.id !== activeId) return s;
+
+          const newMessages = [
+            ...s.messages,
+            { role: "assistant", content: { text: data.reply } },
+          ];
+
+          const isDefaultTitle = s.title === "New Chat";
+          const generatedTitle = data.reply
+            .split(" ")
+            .slice(0, 6)
+            .join(" ")
+            .replace(/[^a-zA-Z0-9 ]/g, "");
+
+          return {
+            ...s,
+            title: isDefaultTitle ? generatedTitle : s.title,
+            messages: newMessages,
+          };
+        })
       );
     } catch (err) {
       alert("Error contacting AskBot server.");
