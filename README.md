@@ -10,6 +10,11 @@ This is the frontend of the AskBot Chatbot application, built with **React**. It
 
 ## 🧪 Screenshots
 
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/b1f11d72-dd80-411d-9d11-1ae9a9640cad" />
+
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/9b9158dd-ef45-4d6e-b951-219479537425" />
+
+
 ---
 
 ## 🛠️ Project Setup
