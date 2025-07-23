@@ -3,7 +3,7 @@
 This is the frontend of the AskBot Chatbot application, built with **React**. It communicates with a FastAPI backend using the Gemini API to provide real time responses. The chatbot UI mimics ChatGPT with support for multiple chat sessions and image input.
 
 ## 🚀 Live App
-
+ 
 ### ✅ AskBot FrontEnd (Vercel)
 [![AskBot FrontEnd](https://img.shields.io/badge/AskBot-FrontEnd-000?style=for-the-badge&logo=vercel&logoColor=white)](https://ask-bot-front-end-git-main-udarachamidus-projects.vercel.app/)
 
