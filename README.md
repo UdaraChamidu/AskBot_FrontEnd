@@ -4,7 +4,7 @@ This is the frontend of the AskBot Chatbot application, built with **React**. It
 
 ## 🚀 Live App
 
-👉 [AskBot on Vercel]([https://ask-bot-front-end-git-main-udarachamidus-projects.vercel.app/](https://ask-bot-front-end-git-main-udarachamidus-projects.vercel.app/))
+[![AskBot on Vercel](https://img.shields.io/badge/AskBot-Vercel-blue?style=for-the-badge&logo=vercel)](https://ask-bot-front-end-git-main-udarachamidus-projects.vercel.app/)
 
 ---
 
