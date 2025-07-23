@@ -16,10 +16,13 @@ This is the frontend of the AskBot Chatbot application, built with **React**. It
 
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/b1f11d72-dd80-411d-9d11-1ae9a9640cad" />
 
-### Vercel screenshot
+### Vercel Frontend Screenshot
 
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/9b9158dd-ef45-4d6e-b951-219479537425" />
 
+### Railway - Backend Screenshot
+
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/02916181-63a9-4a92-9998-1af07d8b7c11" />
 
 ---
 
